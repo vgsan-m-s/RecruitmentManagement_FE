@@ -4,7 +4,6 @@ import { ApplicantServiceProxy, ApplicantDto } from '../../../shared/service-pro
 @Component({
   selector: 'app-applicant',
   templateUrl: './applicant.component.html',
-  styleUrls: ['./applicant.component.css'],
   providers: [ApplicantServiceProxy]
 })
 export class ApplicantComponent implements OnInit {

@@ -1,0 +1,68 @@
+<div>
+  <div class="row margin-bottom-5">
+      <div class="col-xs-12">
+          <div class="page-head">
+              <div class="page-title">
+                  <h3>
+                      <span>{{"Workflow Creation"}}</span>
+                  </h3>
+              </div>
+          </div>
+      </div>
+  </div>
+ 
+  <div class="portlet light margin-bottom-0">
+      <div class="portlet-body">
+          
+        <form class="horizontal-form ng-untouched ng-pristine ng-valid">
+          <div class="col-xs-12 text-right">
+                <button class="btn btn-primary blue" (click)="reset()"><i class="fa fa-floppy-o"></i> {{"New"}}</button>
+                <button class="btn btn-primary blue" (click)="save()"><i class="fa fa-floppy-o"></i> {{"Save"}}</button>
+          </div>
+          <div class="form-body">
+
+              <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                          <label>{{"ProcessName"}}</label>
+                          <input class="form-control" type="text" name="Name" [(ngModel)]="workflow.processName" required maxlength="200">
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                          <label>{{"ProcessOrder"}}</label>
+                          <input class="form-control" type="number" name="Order" [(ngModel)]="workflow.processOrder" required maxlength="2">
+                      </div>
+                  </div>
+              </div>
+              
+          </div>
+        </form>
+
+        <div class="panel panel-default">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                       <th>Process Name</th>
+                       <th>Process Order</th>
+                       <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let wrkFlw of workflows">
+                        <td>{{wrkFlw.processName}}</td>
+                        <td>{{wrkFlw.processOrder}}</td>
+                        <td>
+                            <button (click)="onEdit(wrkFlw.id)">Edit</button>
+                            <button (click)="onDelete(wrkFlw.id)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+      </div>
+  </div>
+</div>

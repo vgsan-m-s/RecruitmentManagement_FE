@@ -34,6 +34,55 @@ export class ApplicantServiceProxy {
     }
 
     /**
+     * @id (optional) 
+     * @return Success
+     */
+    getApplicant(id: number): Observable<ApplicantDto> {
+        let url_ = this.baseUrl + "/api/Applicant/GetApplicant?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_ : any) => {
+            return this.processGetApplicant(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetApplicant(response_);
+                } catch (e) {
+                    return <Observable<ApplicantDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ApplicantDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetApplicant(response: Response): Observable<ApplicantDto> {
+        const status = response.status; 
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? ApplicantDto.fromJS(resultData200) : new ApplicantDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<ApplicantDto>(<any>null);
+    }
+
+    /**
      * @return Success
      */
     getApplicants(): Observable<ApplicantDto[]> {
@@ -112,7 +161,7 @@ export class ApplicantServiceProxy {
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
-            method: "post",
+            method: "put",
             headers: new Headers({
                 "Content-Type": "application/json", 
             })
@@ -202,6 +251,51 @@ export class ApplicantServiceProxy {
     }
 
     protected processUpdateApplicant(response: Response): Observable<void> {
+        const status = response.status; 
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @return Success
+     */
+    deleteApplicant(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/Applicant/DeleteApplicant?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_ : any) => {
+            return this.processDeleteApplicant(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processDeleteApplicant(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processDeleteApplicant(response: Response): Observable<void> {
         const status = response.status; 
 
         let _headers: any = response.headers ? response.headers.toJSON() : {};
@@ -580,6 +674,55 @@ export class WorkflowServiceProxy {
     }
 
     /**
+     * @id (optional) 
+     * @return Success
+     */
+    getWorkflow(id: number): Observable<WorkflowDto> {
+        let url_ = this.baseUrl + "/api/Workflow/GetWorkflow?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_ : any) => {
+            return this.processGetWorkflow(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorkflow(response_);
+                } catch (e) {
+                    return <Observable<WorkflowDto>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorkflowDto>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorkflow(response: Response): Observable<WorkflowDto> {
+        const status = response.status; 
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? WorkflowDto.fromJS(resultData200) : new WorkflowDto();
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<WorkflowDto>(<any>null);
+    }
+
+    /**
      * @return Success
      */
     getWorkflows(): Observable<WorkflowDto[]> {
@@ -643,7 +786,7 @@ export class WorkflowServiceProxy {
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
-            method: "post",
+            method: "put",
             headers: new Headers({
                 "Content-Type": "application/json", 
             })
@@ -715,6 +858,51 @@ export class WorkflowServiceProxy {
     }
 
     protected processUpdateWorkflow(response: Response): Observable<void> {
+        const status = response.status; 
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @return Success
+     */
+    deleteWorkflow(id: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/Workflow/DeleteWorkflow?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            method: "delete",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_ : any) => {
+            return this.processDeleteWorkflow(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processDeleteWorkflow(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processDeleteWorkflow(response: Response): Observable<void> {
         const status = response.status; 
 
         let _headers: any = response.headers ? response.headers.toJSON() : {};

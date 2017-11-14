@@ -1,0 +1,115 @@
+<div>
+    <div class="row margin-bottom-5">
+        <div class="col-xs-12">
+            <div class="page-head">
+                <div class="page-title">
+                    <h3>
+                        <span>{{"Workflow Creation"}}</span>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="portlet light margin-bottom-0">
+        <div class="portlet-body">
+            
+          <form class="horizontal-form ng-untouched ng-pristine ng-valid">
+            <div class="col-xs-12 text-right">
+                <button class="btn btn-primary blue" (click)="reset()"><i class="fa fa-floppy-o"></i> {{"New"}}</button>
+                <button class="btn btn-primary blue" (click)="save()"><i class="fa fa-floppy-o"></i> {{"Save"}}</button>
+            </div>
+            <div class="form-body">
+  
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                      <label>{{"First Name"}}</label>
+                      <input class="form-control" type="text" name="firstName" [(ngModel)]="applicant.firstName" required maxlength="200">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                      <label>{{"Last Name"}}</label>
+                      <input class="form-control" type="text" name="lastName" [(ngModel)]="applicant.lastName" required maxlength="200">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <label>{{"Email Address"}}</label>
+                        <input type="email" name="EmailAddress" class="form-control" [(ngModel)]="applicant.mailAddress" required maxlength="256" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$">
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <label>{{"Date Of Birth"}}</label>
+                        <input name="applicant.dateOfBirth" (ngModelChange)="applicant.dateOfBirth = $event" class="form-control" type="date" [(ngModel)]="applicant.dateOfBirth" required>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                      <label>{{"Phone No"}}</label>
+                      <input class="form-control" type="number" name="phoneNo" [(ngModel)]="applicant.phoneNo" maxlength="15">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                      <label>{{"Mobile No"}}</label>
+                      <input class="form-control" type="number" name="mobileNo" [(ngModel)]="applicant.mobileNo" maxlength="15">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                      <label>{{"Address"}}</label>
+                      <input class="form-control" type="text" name="address" [(ngModel)]="applicant.address" maxlength="1000">
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </form>
+  
+          <div class="panel panel-default">
+              <table class="table table-striped">
+                  <thead>
+                      <tr>
+                         <th>First Name</th>
+                         <th>Last Order</th>
+                         <th>Email</th>
+                         <th>Phone</th>
+                         <th>Mobile</th>
+                         <th>DOB</th>
+                         <th>Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let aplicnt of applicants">
+                          <td>{{aplicnt.firstName}}</td>
+                          <td>{{aplicnt.lastName}}</td>
+                          <td>{{aplicnt.mailAddress}}</td>
+                          <td>{{aplicnt.phoneNo}}</td>
+                          <td>{{aplicnt.mobileNo}}</td>
+                          <td>{{aplicnt.dateOfBirth | date:'MM-dd-yyyy'}}</td>
+                          <td>
+                              <button (click)="onEdit(aplicnt.id)">Edit</button>
+                              <button (click)="onDelete(aplicnt.id)">Delete</button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+  
+        </div>
+    </div>
+  </div>
