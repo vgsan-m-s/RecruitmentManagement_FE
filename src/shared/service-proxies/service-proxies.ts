@@ -217,6 +217,116 @@ export class ApplicantServiceProxy {
 }
 
 @Injectable()
+export class ApplicantWorkflowServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getApplicantWorkflows(): Observable<ApplicantWorkflowDto[]> {
+        let url_ = this.baseUrl + "/api/ApplicantWorkflow/GetApplicantWorkflows";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_ : any) => {
+            return this.processGetApplicantWorkflows(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetApplicantWorkflows(response_);
+                } catch (e) {
+                    return <Observable<ApplicantWorkflowDto[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ApplicantWorkflowDto[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetApplicantWorkflows(response: Response): Observable<ApplicantWorkflowDto[]> {
+        const status = response.status; 
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(ApplicantWorkflowDto.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<ApplicantWorkflowDto[]>(<any>null);
+    }
+
+    /**
+     * @applicantId (optional) 
+     * @workflowId (optional) 
+     * @return Success
+     */
+    createApplicantWorkflow(applicantId: number, workflowId: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/ApplicantWorkflow/CreateApplicantWorkflow?";
+        if (applicantId !== undefined)
+            url_ += "ApplicantId=" + encodeURIComponent("" + applicantId) + "&"; 
+        if (workflowId !== undefined)
+            url_ += "WorkflowId=" + encodeURIComponent("" + workflowId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_ : any) => {
+            return this.processCreateApplicantWorkflow(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateApplicantWorkflow(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateApplicantWorkflow(response: Response): Observable<void> {
+        const status = response.status; 
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class ExperienceServiceProxy {
     private http: Http;
     private baseUrl: string;
@@ -458,6 +568,167 @@ export class ExperienceServiceProxy {
     }
 }
 
+@Injectable()
+export class WorkflowServiceProxy {
+    private http: Http;
+    private baseUrl: string;
+    protected jsonParseReviver: (key: string, value: any) => any = undefined;
+
+    constructor(@Inject(Http) http: Http, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getWorkflows(): Observable<WorkflowDto[]> {
+        let url_ = this.baseUrl + "/api/Workflow/GetWorkflows";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_ : any) => {
+            return this.processGetWorkflows(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetWorkflows(response_);
+                } catch (e) {
+                    return <Observable<WorkflowDto[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<WorkflowDto[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetWorkflows(response: Response): Observable<WorkflowDto[]> {
+        const status = response.status; 
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(WorkflowDto.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<WorkflowDto[]>(<any>null);
+    }
+
+    /**
+     * @processName (optional) 
+     * @processOrder (optional) 
+     * @return Success
+     */
+    createWorkflow(processName: string, processOrder: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/Workflow/CreateWorkflow?";
+        if (processName !== undefined)
+            url_ += "ProcessName=" + encodeURIComponent("" + processName) + "&"; 
+        if (processOrder !== undefined)
+            url_ += "ProcessOrder=" + encodeURIComponent("" + processOrder) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_ : any) => {
+            return this.processCreateWorkflow(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processCreateWorkflow(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processCreateWorkflow(response: Response): Observable<void> {
+        const status = response.status; 
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<void>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @processName (optional) 
+     * @processOrder (optional) 
+     * @return Success
+     */
+    updateWorkflow(id: number, processName: string, processOrder: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/Workflow/UpdateWorkflow?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        if (processName !== undefined)
+            url_ += "ProcessName=" + encodeURIComponent("" + processName) + "&"; 
+        if (processOrder !== undefined)
+            url_ += "ProcessOrder=" + encodeURIComponent("" + processOrder) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_ : any) => {
+            return this.processUpdateWorkflow(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processUpdateWorkflow(response_);
+                } catch (e) {
+                    return <Observable<void>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<void>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processUpdateWorkflow(response: Response): Observable<void> {
+        const status = response.status; 
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            return Observable.of<void>(<any>null);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<void>(<any>null);
+    }
+}
+
 export class ApplicantDto implements IApplicantDto {
     id: number;
     firstName: string;
@@ -523,6 +794,104 @@ export interface IApplicantDto {
     mobileNo: string;
     address: string;
     isActive: boolean;
+}
+
+export class ApplicantWorkflowDto implements IApplicantWorkflowDto {
+    id: number;
+    applicantId: number;
+    applicant: ApplicantDto;
+    workflowId: number;
+    workflow: WorkflowDto;
+    actionTime: moment.Moment;
+
+    constructor(data?: IApplicantWorkflowDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.applicantId = data["applicantId"];
+            this.applicant = data["applicant"] ? ApplicantDto.fromJS(data["applicant"]) : <any>undefined;
+            this.workflowId = data["workflowId"];
+            this.workflow = data["workflow"] ? WorkflowDto.fromJS(data["workflow"]) : <any>undefined;
+            this.actionTime = data["actionTime"] ? moment(data["actionTime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ApplicantWorkflowDto {
+        let result = new ApplicantWorkflowDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["applicantId"] = this.applicantId;
+        data["applicant"] = this.applicant ? this.applicant.toJSON() : <any>undefined;
+        data["workflowId"] = this.workflowId;
+        data["workflow"] = this.workflow ? this.workflow.toJSON() : <any>undefined;
+        data["actionTime"] = this.actionTime ? this.actionTime.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IApplicantWorkflowDto {
+    id: number;
+    applicantId: number;
+    applicant: ApplicantDto;
+    workflowId: number;
+    workflow: WorkflowDto;
+    actionTime: moment.Moment;
+}
+
+export class WorkflowDto implements IWorkflowDto {
+    id: number;
+    processName: string;
+    processOrder: number;
+
+    constructor(data?: IWorkflowDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.processName = data["processName"];
+            this.processOrder = data["processOrder"];
+        }
+    }
+
+    static fromJS(data: any): WorkflowDto {
+        let result = new WorkflowDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["processName"] = this.processName;
+        data["processOrder"] = this.processOrder;
+        return data; 
+    }
+}
+
+export interface IWorkflowDto {
+    id: number;
+    processName: string;
+    processOrder: number;
 }
 
 export class ExperienceDto implements IExperienceDto {
