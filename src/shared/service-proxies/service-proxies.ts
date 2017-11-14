@@ -322,10 +322,13 @@ export class ApplicantWorkflowServiceProxy {
     }
 
     /**
+     * @applicantMailAddress (optional) 
      * @return Success
      */
-    getApplicantWorkflows(): Observable<ApplicantWorkflowDto[]> {
-        let url_ = this.baseUrl + "/api/ApplicantWorkflow/GetApplicantWorkflows";
+    getApplicantWorkflows(applicantMailAddress: string): Observable<ApplicantWorkflowDto[]> {
+        let url_ = this.baseUrl + "/api/ApplicantWorkflow/GetApplicantWorkflows?";
+        if (applicantMailAddress !== undefined)
+            url_ += "ApplicantMailAddress=" + encodeURIComponent("" + applicantMailAddress) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -351,6 +354,56 @@ export class ApplicantWorkflowServiceProxy {
     }
 
     protected processGetApplicantWorkflows(response: Response): Observable<ApplicantWorkflowDto[]> {
+        const status = response.status; 
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(ApplicantWorkflowDto.fromJS(item));
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<ApplicantWorkflowDto[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getApplicantCurrentState(): Observable<ApplicantWorkflowDto[]> {
+        let url_ = this.baseUrl + "/api/ApplicantWorkflow/GetApplicantCurrentState";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_ : any) => {
+            return this.processGetApplicantCurrentState(response_);
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.processGetApplicantCurrentState(response_);
+                } catch (e) {
+                    return <Observable<ApplicantWorkflowDto[]>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<ApplicantWorkflowDto[]>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processGetApplicantCurrentState(response: Response): Observable<ApplicantWorkflowDto[]> {
         const status = response.status; 
 
         let _headers: any = response.headers ? response.headers.toJSON() : {};

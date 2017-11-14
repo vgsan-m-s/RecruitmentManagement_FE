@@ -4,7 +4,7 @@
             <div class="page-head">
                 <div class="page-title">
                     <h3>
-                        <span>{{"Workflow Creation"}}</span>
+                        <span>{{"Applicant Creation"}}</span>
                     </h3>
                 </div>
             </div>
@@ -28,32 +28,6 @@
                       <input class="form-control" type="text" name="firstName" [(ngModel)]="applicant.firstName" required maxlength="200">
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                      <label>{{"Last Name"}}</label>
-                      <input class="form-control" type="text" name="lastName" [(ngModel)]="applicant.lastName" required maxlength="200">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                      <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <label>{{"Email Address"}}</label>
-                        <input type="email" name="EmailAddress" class="form-control" [(ngModel)]="applicant.mailAddress" required maxlength="256" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$">
-                      </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                      <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <label>{{"Date Of Birth"}}</label>
-                        <input name="applicant.dateOfBirth" (ngModelChange)="applicant.dateOfBirth = $event" class="form-control" type="date" [(ngModel)]="applicant.dateOfBirth" required>
-                      </div>
-                  </div>
-                </div>
-                <div class="row">
                   <div class="col-md-6">
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
                       <label>{{"Phone No"}}</label>
@@ -64,6 +38,12 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                      <label>{{"Last Name"}}</label>
+                      <input class="form-control" type="text" name="lastName" [(ngModel)]="applicant.lastName" required maxlength="200">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
                       <label>{{"Mobile No"}}</label>
                       <input class="form-control" type="number" name="mobileNo" [(ngModel)]="applicant.mobileNo" maxlength="15">
                     </div>
@@ -71,15 +51,30 @@
                 </div>
                 <div class="row">
                   <div class="col-md-6">
+                      <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <label>{{"Email Address"}}</label>
+                        <input type="email" name="EmailAddress" class="form-control" [(ngModel)]="applicant.mailAddress" required maxlength="256" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$">
+                      </div>
+                  </div>
+                  <div class="col-md-6">
                     <div class="form-group form-md-line-input form-md-floating-label no-hint">
                       <label>{{"Address"}}</label>
                       <input class="form-control" type="text" name="address" [(ngModel)]="applicant.address" maxlength="1000">
                     </div>
                   </div>
                 </div>
+                <!-- <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <label>{{"Date Of Birth"}}</label>
+                        <input name="applicant.dateOfBirth" (ngModelChange)="applicant.dateOfBirth = $event" class="form-control" type="date" [(ngModel)]="applicant.dateOfBirth" required>
+                      </div>
+                  </div>
+                </div> -->
             </div>
           </form>
   
+          <br /><br />
           <div class="panel panel-default">
               <table class="table table-striped">
                   <thead>
@@ -89,7 +84,7 @@
                          <th>Email</th>
                          <th>Phone</th>
                          <th>Mobile</th>
-                         <th>DOB</th>
+                         <!-- <th>DOB</th> -->
                          <th>Action</th>
                       </tr>
                   </thead>
@@ -100,7 +95,7 @@
                           <td>{{aplicnt.mailAddress}}</td>
                           <td>{{aplicnt.phoneNo}}</td>
                           <td>{{aplicnt.mobileNo}}</td>
-                          <td>{{aplicnt.dateOfBirth | date:'MM-dd-yyyy'}}</td>
+                          <!-- <td>{{aplicnt.dateOfBirth | date:'MM-dd-yyyy'}}</td> -->
                           <td>
                               <button (click)="onEdit(aplicnt.id)">Edit</button>
                               <button (click)="onDelete(aplicnt.id)">Delete</button>

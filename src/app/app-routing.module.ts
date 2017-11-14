@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ApplicantComponent } from './main/applicant/applicant.component';
 import { ApplicantInsertComponent } from './main/applicant-insert/applicant-insert.component';
 import { ApplicantsDetailComponent } from './main/applicants-detail/applicants-detail.component';
+import { ApplicantsHistoryComponent } from './main/applicants-history/applicants-history.component';
 
 import { WorkflowInsertComponent } from './main/workflow-insert/workflow-insert.component';
 
@@ -14,6 +15,7 @@ export const appRoutes: Routes = [
   { path: 'applicant-insert', component: ApplicantInsertComponent },
   { path: 'applicants-detail', component: ApplicantsDetailComponent },
   { path: 'workflow-insert', component: WorkflowInsertComponent },
+  { path: 'applicant-history', component: ApplicantsHistoryComponent},
   { path: 'help', component: HelpComponent }
 ];
 @NgModule({

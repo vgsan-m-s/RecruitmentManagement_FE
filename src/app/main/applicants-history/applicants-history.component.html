@@ -4,7 +4,7 @@
             <div class="page-head">
                 <div class="page-title">
                     <h3>
-                        <span>{{"Applicant Current Stage"}}</span>
+                        <span>{{"Applicant History"}}</span>
                     </h3>
                 </div>
             </div>
@@ -13,26 +13,35 @@
    
     <div class="portlet light margin-bottom-0">
         <div class="portlet-body">
-          
+            
+          <br /><br />
+          <form class="horizontal-form ng-untouched ng-pristine ng-valid">
+            <div class="form-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <input placeholder="Email Address" type="email" name="EmailAddress" class="form-control" [(ngModel)]="mailAddress" maxlength="256" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$">
+                </div>
+                <div>
+                  <button class="btn btn-primary blue" (click)="search()">{{"Search"}}</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <br /><br />
           <div class="panel panel-default">
               <table class="table table-striped">
                   <thead>
                       <tr>
                          <th>Applicant Name</th>
-                         <th>Previous Action Time</th>
-                         <th>Current State</th>
+                         <th>Action</th>
+                         <th>Action Time</th>
                       </tr>
                   </thead>
                   <tbody>
                       <tr *ngFor="let applicantWork of applicantWorkflow">
                           <td>{{applicantWork.applicant.firstName + " " + applicantWork.applicant.lastName}}</td>
+                          <td>{{applicantWork.workflow.processName}}</td>
                           <td>{{applicantWork.actionTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                          <td>
-                            <select [(ngModel)]="applicantWork.workflowId" (ngModelChange)="onChange(applicantWork)" name="workflowId">
-                              <option value="0">None</option>
-                              <option *ngFor="let wrkflw of workflows" [value]="wrkflw.id">{{wrkflw.processName}}</option>
-                            </select>
-                          </td>
                       </tr>
                   </tbody>
               </table>

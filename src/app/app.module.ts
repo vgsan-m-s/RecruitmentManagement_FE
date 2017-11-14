@@ -13,6 +13,7 @@ import { HelpComponent } from './main/help/help.component';
 import { ApplicantInsertComponent } from './main/applicant-insert/applicant-insert.component';
 import { WorkflowInsertComponent } from './main/workflow-insert/workflow-insert.component';
 import { ApplicantsDetailComponent } from './main/applicants-detail/applicants-detail.component';
+import { ApplicantsHistoryComponent } from './main/applicants-history/applicants-history.component';
 
 export function getRemoteServiceBaseUrl(): string {
   return 'http://localhost:54978';
@@ -25,7 +26,8 @@ export function getRemoteServiceBaseUrl(): string {
     HelpComponent,
     ApplicantInsertComponent,
     WorkflowInsertComponent,
-    ApplicantsDetailComponent
+    ApplicantsDetailComponent,
+    ApplicantsHistoryComponent
   ],
   imports: [
     BrowserModule,

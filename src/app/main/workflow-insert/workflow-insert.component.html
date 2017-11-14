@@ -21,26 +21,25 @@
           </div>
           <div class="form-body">
 
-              <div class="row">
-                  <div class="col-md-6">
-                      <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                          <label>{{"ProcessName"}}</label>
-                          <input class="form-control" type="text" name="Name" [(ngModel)]="workflow.processName" required maxlength="200">
-                      </div>
-                  </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <label>{{"ProcessName"}}</label>
+                        <input class="form-control" type="text" name="Name" [(ngModel)]="workflow.processName" required maxlength="200">
+                    </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-6">
-                      <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                          <label>{{"ProcessOrder"}}</label>
-                          <input class="form-control" type="number" name="Order" [(ngModel)]="workflow.processOrder" required maxlength="2">
-                      </div>
-                  </div>
-              </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                        <label>{{"ProcessOrder"}}</label>
+                        <input class="form-control" type="number" name="Order" [(ngModel)]="workflow.processOrder" required maxlength="2">
+                    </div>
+                </div>
+            </div>
               
           </div>
         </form>
 
+        <br /><br />
         <div class="panel panel-default">
             <table class="table table-striped">
                 <thead>
