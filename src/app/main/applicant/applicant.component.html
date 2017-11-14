@@ -1,0 +1,32 @@
+<div>
+  <div class="row margin-bottom-5">
+      <div class="col-xs-12">
+          <div class="page-head">
+              <div class="page-title">
+                  <h1>
+                      <span>{{"Applicant List"}}</span>
+                  </h1>
+              </div>
+          </div>
+      </div>
+  </div>
+ 
+  <div class="portlet light margin-bottom-0">
+      <div class="portlet-body">
+          
+          <h3>{{"All Applicant"}}</h3>
+
+          <div class="list-group">
+              <a *ngFor="let applicant of applicants" href="javascript:;" class="list-group-item">
+                  <h4 class="list-group-item-heading">
+                      {{applicant.firstName + ' ' + applicant.lastName}}
+                  </h4>
+                  <p class="list-group-item-text">
+                      {{applicant.mailAddress}}
+                  </p>
+              </a>
+          </div>
+
+      </div>
+  </div>
+</div>
